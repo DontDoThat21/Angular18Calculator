@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CalculatorService {
-  private apiUrl = 'http://localhost:7067/Calculator'; // Adjust the URL to match your API endpoint
+  private apiUrl = 'http://localhost:7067/Api/Calculator'; // Adjust the URL to match your API endpoint
 
   constructor(private http: HttpClient) {}
 
