@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CalculatorService } from '../calculator.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class CalculatorComponent {
   operations: string[] = [];
   location = 'default';
 
-  constructor(private calculatorService: CalculatorService) {}
+  constructor(private calculatorService: CalculatorService, private cdr: ChangeDetectorRef) {}
 
   setFirstNumber(): void {
     if (this.firstNumber !== null) {
@@ -44,6 +44,8 @@ export class CalculatorComponent {
       this.operation = null;
       this.result = null;
       this.operations = [];
+
+      this.cdr.detectChanges();
     });
   }
 }
