@@ -1,0 +1,76 @@
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; 
+    max-width: 600px; 
+    margin: auto;
+    padding: 20px;
+    background-color: #f0f0f0; /* gray background */
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* shadow */
+  }
+  
+  .calculator-container h2 {
+    font-size: 2.5rem; /* Large font size */
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .input-group input[type="number"],
+  .input-group select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-group input[type="number"]:focus,
+  .input-group select:focus {
+    border-color: #3498db; /* Blue focus */
+  }
+  
+  .input-group button,
+  .clear-btn {
+    padding: 10px 20px;
+    background-color: #3498db; /* Blue butnton backgrd */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .input-group button:hover,
+  .clear-btn:hover {
+    background-color: #2980b9; /* darker blue  hover */
+  }
+  
+  .result {
+    margin-top: 20px;
+  }
+  
+  .clear-btn {
+    margin-top: 20px;
+    background-color: #e74c3c; /* Red button bg */
+  }
+  
+  .clear-btn:hover {
+    background-color: #c0392b; /* Darker red hover */
+  }
+  

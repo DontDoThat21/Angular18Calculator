@@ -1,27 +1,29 @@
-<div>
-    <h2>Calculator</h2>
-    <div>
-      <label>First Number:
-        <input type="number" [(ngModel)]="firstNumber">
-        <button (click)="setFirstNumber()">Set First Number</button>
-      </label>
-    </div>
-    <div>
-      <label>Second Number:
-        <input type="number" [(ngModel)]="secondNumber">
-        <button (click)="setSecondNumber()">Set Second Number</button>
-      </label>
-    </div>
-    <div *ngIf="operations.length > 0">
-      <label>Operation:
-        <select [(ngModel)]="operation">
-          <option *ngFor="let op of operations" [value]="op">{{ op }}</option>
-        </select>
-      </label>
-      <button (click)="performCalculation()">Calculate</button>
-    </div>
-    <div *ngIf="result !== null">
-      <h3>Result: {{ result }}</h3>
-    </div>
-    <button (click)="clear()">Clear</button>
+<div class="calculator-container">
+  <h2>Calculator</h2>
+  
+  <div class="input-group">
+    <label>First Number:</label>
+    <input type="number" [(ngModel)]="firstNumber" />
+    <button (click)="setFirstNumber()">Set First Number</button>
   </div>
+
+  <div class="input-group">
+    <label>Second Number:</label>
+    <input type="number" [(ngModel)]="secondNumber" />
+    <button (click)="setSecondNumber()">Set Second Number</button>
+  </div>
+
+  <div *ngIf="operations.length > 0" class="input-group">
+    <label>Operation:</label>
+    <select [(ngModel)]="operation">
+      <option *ngFor="let op of operations" [value]="op">{{ op }}</option>
+    </select>
+    <button (click)="performCalculation()">Calculate</button>
+  </div>
+
+  <div *ngIf="result !== null" class="result">
+    <h3>Result: {{ result }}</h3>
+  </div>
+
+  <button class="clear-btn" (click)="clear()">Clear</button>
+</div>
