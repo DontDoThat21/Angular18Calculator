@@ -1,13 +1,13 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalculatorService } from '../calculator.service';
-import { FormBuilder } from '@angular/forms';
-
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.css']
 })
 export class CalculatorComponent {
+  calculatorForm: FormGroup;
   firstNumber: string | null = null;
   secondNumber: string | null = null;
   operation: string | null = null;
@@ -17,9 +17,23 @@ export class CalculatorComponent {
 
   constructor(private calculatorService: CalculatorService,
      private cdr: ChangeDetectorRef,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder) {
+      this.calculatorForm = this.fb.group({
+        firstNumber: ['', [Validators.required, Validators.pattern(/^[-+]?\d{1,4}$/), this.rangeValidator.bind(this)]],
+        secondNumber: ['', [Validators.required, Validators.pattern(/^[-+]?\d{1,4}$/), this.rangeValidator.bind(this)]],
+        operation: ['', Validators.required]
+      });
+    }
 
-  isValid(controlName: string): boolean {
+    rangeValidator(control: any): { [key: string]: boolean } | null {
+      const value = parseFloat(control.value);
+      if (!isNaN(value) && (value < -1000 || value > 1000)) {
+        return { 'rangeError': true };
+      }
+      return null;
+    }
+
+    isValid(controlName: string): boolean {
     let value: number | null = null;
   
     if (controlName === 'firstNumber' && this.firstNumber !== null) {
@@ -32,35 +46,38 @@ export class CalculatorComponent {
   }
 
   setFirstNumber(): void {
-    if (this.firstNumber !== null) {
-      this.calculatorService.setFirstNumber(parseFloat(this.firstNumber), this.location)
+    const firstNumber = this.calculatorForm.get('firstNumber')?.value;
+    if (firstNumber !== null) {
+      this.calculatorService.setFirstNumber(parseFloat(firstNumber), this.location)
         .subscribe(operations => this.operations = operations);
     }
   }
 
   setSecondNumber(): void {
-    if (this.secondNumber !== null) {
-      this.calculatorService.setSecondNumber(parseFloat(this.secondNumber), this.location)
+    const secondNumber = this.calculatorForm.get('secondNumber')?.value;
+    if (secondNumber !== null) {
+      this.calculatorService.setSecondNumber(parseFloat(secondNumber), this.location)
         .subscribe(operations => this.operations = operations);
     }
   }
 
   performCalculation(): void {
-    if (this.firstNumber !== null && this.secondNumber !== null && this.operation) {
-      const num1 = parseFloat(this.firstNumber);
-      const num2 = parseFloat(this.secondNumber);
+    if (this.calculatorForm.valid) {
+      const { firstNumber, secondNumber, operation } = this.calculatorForm.value;
+      const num1 = parseFloat(firstNumber);      
+      const num2 = parseFloat(secondNumber);
 
       if (isNaN(num1) || isNaN(num2)) {
         alert('Error: Invalid number input');
         return;
       }
 
-      if (this.operation === 'divide' && num2 === 0) {
+      if (operation === 'divide' && num2 === 0) {
         alert('Error: Division by zero');
         return;
       }
 
-      this.calculatorService.calculate(num1, num2, this.operation, this.location)
+      this.calculatorService.calculate(num1, num2, operation, this.location)
         .subscribe(result => this.result = result);
     }
   }
@@ -70,10 +87,13 @@ export class CalculatorComponent {
       this.firstNumber = null;
       this.secondNumber = null;
       this.operation = null;
+      this.calculatorForm.reset();
       this.result = null;
       this.operations = [];
 
       this.cdr.detectChanges();
+      this.calculatorService.clearNumbers(this.location).subscribe();
+
     });
   }
 }
