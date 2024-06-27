@@ -1,6 +1,10 @@
-# Angular18Calculator
+# Angular 18 Calculator App
+This project was created with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
+This Angular 18 Calculator App is a simple web application utilizing .NET Core 8 API for the calculations. It allows users to perform basic arithmetic calculations (addition, subtraction, multiplication, division) on two numbers within the range of -1000 to 1000. The application includes error handling for invalid inputs and real-time calculation updates.
+
+For the C#.NET Core 8 API, see:
+https://github.com/DontDoThat21/Calculator.WebAPI.NET-Core
 
 ## Development server
 
@@ -10,18 +14,3 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
