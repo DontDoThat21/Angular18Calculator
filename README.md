@@ -2,6 +2,7 @@
 This project was created with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
 
 This Angular 18 Calculator App is a simple web application utilizing .NET Core 8 API for the calculations. It allows users to perform basic arithmetic calculations (addition, subtraction, multiplication, division) on two numbers within the range of -1000 to 1000. The application includes error handling for invalid inputs and real-time calculation updates.
+Client-side and server-side nput validation are included.
 
 For the C#.NET Core 8 API, see:
 https://github.com/DontDoThat21/Calculator.WebAPI.NET-Core
