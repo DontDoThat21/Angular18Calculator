@@ -1,29 +1,49 @@
 <div class="calculator-container">
   <h2>Calculator</h2>
   
-  <div class="input-group">
-    <label>First Number:</label>
-    <input type="number" [(ngModel)]="firstNumber" />
-    <button (click)="setFirstNumber()">Set First Number</button>
-  </div>
+  <form [formGroup]="calculatorForm" (ngSubmit)="performCalculation()" class="form">
+    <div class="input-group">
+      <label>First Number:</label>
+      <input type="text" formControlName="firstNumber">
+      <div *ngIf="calculatorForm.get('firstNumber')?.errors?.['required'] && calculatorForm.get('firstNumber')?.touched" class="error-message">
+        First number is required.
+      </div>
+      <div *ngIf="calculatorForm.get('firstNumber')?.errors?.['pattern'] && calculatorForm.get('firstNumber')?.touched" class="error-message">
+        First number must be a valid integer.
+      </div>
+      <div *ngIf="calculatorForm.get('firstNumber')?.errors?.['rangeError'] && calculatorForm.get('firstNumber')?.touched" class="error-message">
+        First number must be between -1000 and 1000.
+      </div>
+      <button type="button" class="btn" (click)="setFirstNumber()">Set First Number</button>
+    </div>
 
-  <div class="input-group">
-    <label>Second Number:</label>
-    <input type="number" [(ngModel)]="secondNumber" />
-    <button (click)="setSecondNumber()">Set Second Number</button>
-  </div>
+    <div class="input-group">
+      <label>Second Number:</label>
+      <input type="text" formControlName="secondNumber">
+      <div *ngIf="calculatorForm.get('secondNumber')?.errors?.['required'] && calculatorForm.get('secondNumber')?.touched" class="error-message">
+        Second number is required.
+      </div>
+      <div *ngIf="calculatorForm.get('secondNumber')?.errors?.['pattern'] && calculatorForm.get('secondNumber')?.touched" class="error-message">
+        Second number must be a valid integer.
+      </div>
+      <div *ngIf="calculatorForm.get('secondNumber')?.errors?.['rangeError'] && calculatorForm.get('secondNumber')?.touched" class="error-message">
+        Second number must be between -1000 and 1000.
+      </div>
+      <button type="button" class="btn" (click)="setSecondNumber()">Set Second Number</button>
+    </div>
 
-  <div *ngIf="operations.length > 0" class="input-group">
-    <label>Operation:</label>
-    <select [(ngModel)]="operation">
-      <option *ngFor="let op of operations" [value]="op">{{ op }}</option>
-    </select>
-    <button (click)="performCalculation()">Calculate</button>
-  </div>
+    <div *ngIf="operations.length > 0" class="input-group">
+      <label>Operation:</label>
+      <select formControlName="operation" class="select">
+        <option *ngFor="let op of operations" [value]="op">{{ op }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="!calculatorForm.valid" class="btn">Calculate</button>
+    <button type="button" class="btn clear-btn" (click)="clear()">Clear</button>
+  </form>
 
   <div *ngIf="result !== null" class="result">
     <h3>Result: {{ result }}</h3>
   </div>
-
-  <button class="clear-btn" (click)="clear()">Clear</button>
 </div>
